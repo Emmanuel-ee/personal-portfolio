@@ -30,9 +30,9 @@ const Home = () => {
             exit='hidden'
             className='h1'
           >
-            Hi, I'm EMMANUEL. <br />
+            Hi, I&apos;m EMMANUEL. <br />
             Do you know that <br />Great Products Starts <br /> With{' '}
-            <span className='text-accent'>"Hello World"</span>
+            <span className='text-accent'>&quot;Hello World&quot;</span>
           </motion.h1>
           {/* subtitle */}
           <motion.p

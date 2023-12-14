@@ -31,7 +31,7 @@ const Work = () => {
               exit='hidden'
               className='mb-4 max-w-[400px] mx-auto lg:mx-0'
             >
-              As a versatile software engineer, I've engaged in diverse projects,
+              As a versatile software engineer, I&apos;ve engaged in diverse projects,
               including web and mobile app development, enterprise solutions with AWS,
               and cutting-edge work in machine learning using Python and AI frameworks.
               Proficient in DevOps practices and data science, I bring a holistic skill set to projects,
