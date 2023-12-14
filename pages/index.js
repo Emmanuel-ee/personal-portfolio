@@ -29,7 +29,7 @@ const Home = () => {
             className='h1'
           >
             Great Products Starts <br /> With{' '}
-            <span className='text-accent'>Hello World</span>
+            <span className='text-accent'>"Hello World"</span>
           </motion.h1>
           {/* subtitle */}
           <motion.p
