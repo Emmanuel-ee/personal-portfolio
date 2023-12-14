@@ -1,5 +1,6 @@
 // next image
 import Image from 'next/image';
+import Header from '../components/Header';
 
 // components
 import ParticlesContainer from '../components/ParticlesContainer';
@@ -17,6 +18,7 @@ import { fadeIn } from '../variants';
 const Home = () => {
   return (
     <div className='bg-primary/60 h-full'>
+       <Header />
       {/* text */}
       <div className='w-full h-full bg-gradient-to-r from-primary/10 via-black/30 to-black/10'>
         <div className='text-center flex flex-col justify-center xl:pt-40 xl:text-left h-full container mx-auto'>
@@ -28,7 +30,8 @@ const Home = () => {
             exit='hidden'
             className='h1'
           >
-            Great Products Starts <br /> With{' '}
+            Hi, I'm EMMANUEL. <br />
+            Do you know that <br />Great Products Starts <br /> With{' '}
             <span className='text-accent'>"Hello World"</span>
           </motion.h1>
           {/* subtitle */}

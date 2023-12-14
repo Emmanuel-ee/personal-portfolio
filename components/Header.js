@@ -21,7 +21,6 @@ const Header = () => {
               alt=''
               priority={true}
             />
-            <h1>EMMANUEL EMEME</h1>
           </Link>
           {/* socials */}
           <Socials />

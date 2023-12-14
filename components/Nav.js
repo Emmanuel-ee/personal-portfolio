@@ -13,8 +13,6 @@ import {
 export const navData = [
   { name: 'home', path: '/', icon: <HiHome /> },
   { name: 'about', path: '/about', icon: <HiUser /> },
-  { name: 'profession', path: '/profession', icon: <HiRectangleGroup /> },
-  { name: 'resume', path: '/resume', icon: <HiViewColumns /> },
   {
     name: 'projects',
     path: '/projects',
