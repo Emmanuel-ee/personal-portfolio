@@ -1,5 +1,3 @@
-// next image
-import Image from 'next/image';
 import Header from '../components/Header';
 
 // components
@@ -17,11 +15,11 @@ import { fadeIn } from '../variants';
 
 const Home = () => {
   return (
-    <div className='bg-primary/60 h-full'>
-       <Header />
+    <div className='bg-primary/60 h-full relative overflow-hidden'>
+      <Header />
       {/* text */}
       <div className='w-full h-full bg-gradient-to-r from-primary/10 via-black/30 to-black/10'>
-        <div className='text-center flex flex-col justify-center xl:pt-40 xl:text-left h-full container mx-auto'>
+        <div className='text-center flex flex-col justify-center pt-36 pb-24 xl:pt-40 xl:pb-0 xl:text-left h-full container mx-auto'>
           {/* title */}
           <motion.h1
             variants={fadeIn('down', 0.2)}
@@ -30,9 +28,9 @@ const Home = () => {
             exit='hidden'
             className='h1'
           >
-            Hi, I&apos;m EMMANUEL. <br />
-            Do you know that <br />Great Products Starts <br /> With{' '}
-            <span className='text-accent'>&quot;Hello World&quot;</span>
+            Emmanuel Cyprian <br />
+            builds intelligent products <br />
+            with <span className='text-accent'>AI + solid engineering.</span>
           </motion.h1>
           {/* subtitle */}
           <motion.p
@@ -42,7 +40,7 @@ const Home = () => {
             exit='hidden'
             className='max-w-sm xl:max-w-xl mx-auto xl:mx-0 mb-10 xl:mb-16'
           >
-            Software Engineer
+            Software Engineer | ML / AI Engineer
           </motion.p>
           {/* btn */}
           <div className='flex justify-center xl:hidden relative'>
@@ -60,7 +58,7 @@ const Home = () => {
         </div>
       </div>
       {/* image */}
-      <div className='w-[1200px] h-full absolute right-0 bottom-0'>
+      <div className='w-full xl:w-[1200px] h-[55vh] xl:h-full absolute right-0 bottom-0'>
         {/* bg img */}
         <div className='bg-none xl:bg-explosion xl:bg-cover xl:bg-right xl:bg-no-repeat w-full h-full absolute mix-blend-color-dodge translate-z-0'></div>
         {/* particles */}
@@ -72,7 +70,7 @@ const Home = () => {
           animate='show'
           exit='hidden'
           transition={{ duration: 1, ease: 'easeInOut' }}
-          className='w-full h-full max-w-[737px] max-h-[678px] absolute -bottom-32 lg:bottom-0 lg:right-[8%]'
+          className='w-full h-full max-w-[737px] max-h-[678px] absolute -bottom-24 md:-bottom-14 lg:bottom-0 lg:right-[8%]'
         >
           <Avatar />
         </motion.div>
