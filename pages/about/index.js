@@ -90,9 +90,8 @@ import CountUp from 'react-countup';
 
 const About = () => {
   const [index, setIndex] = useState(0);
-  console.log(index);
   return (
-    <div className='h-full bg-primary/30 py-32 text-center xl:text-left'>
+    <main className='min-h-full bg-primary/30 px-4 pb-32 pt-28 text-center sm:px-8 sm:pt-32 xl:px-0 xl:py-32 xl:text-left'>
       <Circles />
       {/* avatar img */}
       <motion.div
@@ -104,7 +103,7 @@ const About = () => {
       >
         <Avatar />
       </motion.div>
-      <div className='container mx-auto h-full flex flex-col items-center xl:flex-row gap-x-6'>
+      <div className='container mx-auto flex min-h-full flex-col items-center gap-x-6 gap-y-8 xl:flex-row'>
         {/* text */}
         <div className='flex-1 flex flex-col justify-center'>
           <motion.h2
@@ -175,32 +174,35 @@ const About = () => {
           initial='hidden'
           animate='show'
           exit='hidden'
-          className='flex flex-col w-full xl:max-w-[48%] h-[480px]'
+          className='flex h-auto min-h-[360px] w-full flex-col xl:h-[480px] xl:max-w-[48%]'
         >
-          <div className='flex gap-x-4 xl:gap-x-8 mx-auto xl:mx-0 mb-4'>
+          <div role='tablist' aria-label='About information' className='mx-auto mb-4 flex gap-x-4 sm:gap-x-8 xl:mx-0'>
             {aboutData.map((item, itemIndex) => {
               return (
-                <div
+                <button
+                  type='button'
+                  role='tab'
+                  id={`about-tab-${itemIndex}`}
+                  aria-selected={index === itemIndex}
+                  aria-controls='about-panel'
                   key={itemIndex}
-                  className={`${index === itemIndex &&
-                    'text-accent after:w-[100%] after:bg-accent after:transition-all after:duration-300'
-                    }  cursor-pointer capitalize xl:text-lg relative after:w-8 after:h-[2px] after:bg-white after:absolute after:-bottom-1 after:left-0`}
+                  className={`relative min-h-11 px-1 text-sm capitalize after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent xl:text-lg ${index === itemIndex ? 'text-accent after:w-full after:bg-accent' : 'text-white/70 after:w-8 after:bg-white/70'}`}
                   onClick={() => setIndex(itemIndex)}
                 >
                   {item.title}
-                </div>
+                </button>
               );
             })}
           </div>
-          <div className='py-2 xl:py-6 flex flex-col gap-y-2 xl:gap-y-4 items-center xl:items-start'>
+          <div id='about-panel' role='tabpanel' aria-labelledby={`about-tab-${index}`} className='flex flex-col items-center gap-y-2 py-2 xl:items-start xl:gap-y-4 xl:py-6'>
             {aboutData[index].info.map((item, itemIndex) => {
               return (
                 <div
                   key={itemIndex}
-                  className='flex-1 flex flex-col md:flex-row max-w-max gap-x-2 items-center text-white/60'
+                  className='flex w-full max-w-full flex-col items-center gap-x-2 text-white/60 md:flex-row md:justify-center xl:justify-start'
                 >
                   {/* title */}
-                  <div className='font-light mb-2 md:mb-0'>{item.title}</div>
+                  <div className='mb-2 font-light md:mb-0'>{item.title}</div>
                   <div className='hidden md:flex'>-</div>
                   <div>{item.stage}</div>
                   <div className='flex gap-x-4'>
@@ -222,7 +224,7 @@ const About = () => {
           />
         </motion.div>
       </div>
-    </div>
+    </main>
   );
 };
 

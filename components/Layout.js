@@ -1,6 +1,8 @@
 // fonts
 import { Sora } from '@next/font/google';
 import Head from 'next/head';
+import Link from 'next/link';
+import { HiHome } from 'react-icons/hi2';
 
 // font settings
 const sora = Sora({
@@ -27,6 +29,15 @@ const Layout = ({ children }) => {
         />
       </Head>
       <TopLeftImg />
+      <Link
+        href='/'
+        aria-label='Return to Emmanuel Cyprian home page'
+        className='fixed left-4 top-4 z-[60] inline-flex min-h-11 items-center gap-2 text-white transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:left-8 sm:top-6'
+      >
+        <HiHome className='text-lg text-accent' aria-hidden='true' />
+        <span className='text-xs font-semibold uppercase tracking-[0.12em] sm:hidden'>Home</span>
+        <span className='hidden text-sm font-semibold sm:inline'>Emmanuel Cyprian</span>
+      </Link>
       <Nav />
       {children}
       <AIChatAssistant />

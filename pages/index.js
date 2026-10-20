@@ -24,7 +24,7 @@ const Home = () => {
               variants={fadeIn('down', 0.2)}
               initial='hidden'
               animate='show'
-              className='mb-6 max-w-3xl text-5xl font-semibold leading-[1.04] tracking-[-0.04em] sm:text-6xl xl:text-7xl'
+              className='mb-6 max-w-3xl text-4xl font-semibold leading-[1.05] sm:text-6xl xl:text-7xl'
             >
               I make useful things for a living.
             </motion.h1>

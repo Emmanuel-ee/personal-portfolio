@@ -12,8 +12,8 @@ import { fadeIn } from '../../variants';
 
 const Contact = () => {
   return (
-    <div className='h-full bg-primary/30'>
-      <div className='container mx-auto py-32 text-center xl:text-left flex items-center justify-center h-full'>
+    <main className='min-h-full bg-primary/30 px-4 pb-32 pt-28 sm:px-8 sm:pt-32'>
+      <div className='container mx-auto flex min-h-full flex-col items-center justify-center py-8 text-center xl:text-left'>
         {/* text & form */}
         <div className='flex flex-col w-full max-w-[700px]'>
           {/* text */}
@@ -35,7 +35,7 @@ const Contact = () => {
             className='flex-1 flex flex-col gap-6 w-full mx-auto'
           >
             {/* input group */}
-            <div className='flex gap-x-6 w-full'>
+            <div className='flex w-full flex-col gap-4 sm:flex-row sm:gap-x-6'>
               <input type='text' placeholder='name' className='input' />
               <input type='text' placeholder='email' className='input' />
             </div>
@@ -50,7 +50,7 @@ const Contact = () => {
           </motion.form>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
