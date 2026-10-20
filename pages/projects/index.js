@@ -31,7 +31,7 @@ const Work = () => {
           >
             Browse GitHub <span aria-hidden='true'>↗</span>
           </a>
-        </div>
+        </motion.div>
 
         <nav aria-label='Jump to a project' className='mb-8 flex flex-wrap gap-x-6 gap-y-3 text-sm'>
           {projects.map((project, index) => (
