@@ -214,7 +214,7 @@ const About = () => {
             })}
           </div>
           <Image
-            src={'/profile-picture.jpg'}
+            src={'/profile-picture.png'}
             width={100}
             height={60}
             className='w-40 h-40 rounded-full'

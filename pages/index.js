@@ -68,7 +68,7 @@ const Home = () => {
             <div className='absolute -left-4 -top-4 h-full w-full border border-accent/50 sm:-left-5 sm:-top-5' />
             <div className='relative aspect-[4/5] overflow-hidden bg-secondary'>
               <Image
-                src='/profile-picture.jpg'
+                src='/profile-picture.png'
                 alt='Emmanuel Cyprian'
                 fill
                 priority
