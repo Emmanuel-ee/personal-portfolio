@@ -4,48 +4,26 @@ export const workSlider = {
     {
       images: [
         {
-          title: 'Nasa Project',
+          title: 'NASA Project',
+          category: 'Software project',
           path: '/Nasa.jpg',
-          url: 'https://github.com/Emmanuel-ee/Nasa-Project'
+          url: 'https://github.com/Emmanuel-ee/Nasa-Project',
         },
         {
-          title: 'title',
-          path: '/thumb2.jpg',
-          url: 'https://github.com/Emmanuel-ee'
-        },
-        {
-          title: 'Self-calibrating-interface-01',
-          path: '',
-          url: 'https://emmanuel-ee.github.io/self-calibrating/'
-        },
-        {
-          title: 'title',
-          path: '',
-          url: 'https://emmanuel-ee.github.io/self-calibrating-02/'
+          title: 'Self-calibrating Interface',
+          category: 'Interactive product',
+          path: '/Interface01.jpg',
+          url: 'https://emmanuel-ee.github.io/self-calibrating/',
         },
       ],
     },
     {
       images: [
         {
-          title: 'title',
-          path: '/thumb4.jpg',
-          url: 'https://github.com/Emmanuel-ee'
-        },
-        {
-          title: 'title',
-          path: '/thumb1.jpg',
-          url: 'https://github.com/Emmanuel-ee'
-        },
-        {
-          title: 'title',
-          path: '/thumb2.jpg',
-          url: 'https://github.com/Emmanuel-ee'
-        },
-        {
-          title: 'title',
-          path: '/thumb3.jpg',
-          url: 'https://github.com/Emmanuel-ee'
+          title: 'Self-calibrating Interface 02',
+          category: 'Interactive product',
+          path: '/Interface02.png',
+          url: 'https://emmanuel-ee.github.io/self-calibrating-02/',
         },
       ],
     },
@@ -76,42 +54,38 @@ const WorkSlider = () => {
         clickable: true,
       }}
       modules={[Pagination]}
-      className='h-[280px] sm:h-[480px]'
+      className='h-[260px] sm:h-[420px]'
     >
       {workSlider.slides.map((slide, index) => {
         return (
           <SwiperSlide key={index}>
-            <div className='grid grid-cols-2 grid-rows-2 gap-4 cursor-pointer'>
+            <div className='grid h-full grid-cols-1 gap-4 sm:grid-cols-2'>
               {slide.images.map((image, index) => {
                 return (
-                  <div
-                    className='relative rounded-lg overflow-hidden flex items-center justify-center group'
-                    key={index}
+                  <a
+                    className='group relative flex min-h-0 flex-col overflow-hidden border border-white/10 bg-secondary'
+                    href={image.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    key={image.title}
                   >
-                    <div className='flex items-center justify-center relative overflow-hidden group'>
-                      {/* image */}
-                      <Image src={image.path} width={500} height={300} alt='' />
-                      {/* overlay gradient */}
-                      <div className='absolute inset-0 bg-gradient-to-l from-transparent via-[#e838cc] to-[#4a22bd] opacity-0 group-hover:opacity-80 transition-all duration-700'></div>
-                      {/* title */}
-                      <div className='absolute bottom-0 translate-y-full group-hover:-translate-y-10 group-hover:xl:-translate-y-20 transition-all duration-300'>
-                        <a href={image.url} target='_blank' rel='noopener noreferrer'>
-                          <div className='flex items-center gap-x-2 text-[13px] tracking-[0.2em]'>
-                            {/* title part 1 */}
-                            <div className='delay-100'>LIVE</div>
-                            {/* title part 2 */}
-                            <div className='translate-y-[500%] group-hover:translate-y-0 transition-all duration-300 delay-150'>
-                              PROJECT
-                            </div>
-                            {/* icon */}
-                            <div className='text-xl translate-y-[500%] group-hover:translate-y-0 transition-all duration-300 delay-200'>
-                              <BsArrowRight />
-                            </div>
-                          </div>
-                        </a>
-                      </div>
+                    <div className='relative min-h-0 flex-1 overflow-hidden'>
+                      <Image
+                        src={image.path}
+                        fill
+                        sizes='(min-width: 640px) 42vw, 90vw'
+                        alt={`${image.title} preview`}
+                        className='object-cover transition-transform duration-500 group-hover:scale-[1.03]'
+                      />
                     </div>
-                  </div>
+                    <div className='flex items-center justify-between gap-4 px-4 py-3'>
+                      <div>
+                        <h3 className='text-sm font-semibold text-white'>{image.title}</h3>
+                        <p className='mt-1 text-xs text-white/50'>{image.category}</p>
+                      </div>
+                      <BsArrowRight className='shrink-0 text-xl text-accent transition-transform group-hover:translate-x-1' aria-hidden='true' />
+                    </div>
+                  </a>
                 );
               })}
             </div>

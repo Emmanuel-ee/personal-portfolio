@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
         <title>Emmanuel Cyprian | Software Engineer</title>
         <meta
           name='description'
-          content='Emmanuel Cyprian - Software Engineer building AI-powered products, machine learning systems, and immersive 3D web experiences.'
+          content='Emmanuel Cyprian is a software engineer and builder working across digital products, web development, cloud systems, data, and applied AI.'
         />
       </Head>
       <TopLeftImg />

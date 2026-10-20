@@ -31,12 +31,18 @@ const Work = () => {
               exit='hidden'
               className='mb-4 max-w-[400px] mx-auto lg:mx-0'
             >
-              As a versatile software engineer, I&apos;ve engaged in diverse projects,
-              including web and mobile app development, enterprise solutions with AWS,
-              and cutting-edge work in machine learning using Python and AI frameworks.
-              Proficient in DevOps practices and data science, I bring a holistic skill set to projects,
-              with a particular focus on creating innovative and user-friendly solutions.
+              A selection from a practice spanning software and web development, product
+              interfaces, cloud architecture, data, and applied AI. The work here is a starting
+              point; more of my engineering projects live on GitHub.
             </motion.p>
+            <a
+              href='https://github.com/Emmanuel-ee'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='mx-auto inline-flex items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-white lg:mx-0'
+            >
+              Browse GitHub <span aria-hidden='true'>↗</span>
+            </a>
           </div>
 
           {/* slider */}
