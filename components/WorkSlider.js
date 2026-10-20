@@ -1,98 +1,65 @@
-// work slider data
-export const workSlider = {
-  slides: [
-    {
-      images: [
-        {
-          title: 'NASA Project',
-          category: 'Software project',
-          path: '/Nasa.jpg',
-          url: 'https://github.com/Emmanuel-ee/Nasa-Project',
-        },
-        {
-          title: 'Self-calibrating Interface',
-          category: 'Interactive product',
-          path: '/Interface01.jpg',
-          url: 'https://emmanuel-ee.github.io/self-calibrating/',
-        },
-      ],
-    },
-    {
-      images: [
-        {
-          title: 'Self-calibrating Interface 02',
-          category: 'Interactive product',
-          path: '/Interface02.png',
-          url: 'https://emmanuel-ee.github.io/self-calibrating-02/',
-        },
-      ],
-    },
-  ],
-};
-
-// import swiper react components
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// import swiper styles
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
-
-// import required modules
-import { Pagination } from 'swiper';
-
-// icons
-import { BsArrowRight } from 'react-icons/bs';
-// next image
+import { HiArrowUpRight } from 'react-icons/hi2';
 import Image from 'next/image';
+
+export const projects = [
+  {
+    id: 'nasa-project',
+    title: 'NASA Project',
+    category: 'Software project',
+    path: '/Nasa.jpg',
+    url: 'https://github.com/Emmanuel-ee/Nasa-Project',
+  },
+  {
+    id: 'self-calibrating-interface',
+    title: 'Self-calibrating Interface',
+    category: 'Interactive product',
+    path: '/Interface01.jpg',
+    url: 'https://emmanuel-ee.github.io/self-calibrating/',
+  },
+  {
+    id: 'self-calibrating-interface-02',
+    title: 'Self-calibrating Interface 02',
+    category: 'Interactive product',
+    path: '/Interface02.png',
+    url: 'https://emmanuel-ee.github.io/self-calibrating-02/',
+  },
+];
 
 const WorkSlider = () => {
   return (
-    <Swiper
-      spaceBetween={10}
-      pagination={{
-        clickable: true,
-      }}
-      modules={[Pagination]}
-      className='h-[260px] sm:h-[420px]'
-    >
-      {workSlider.slides.map((slide, index) => {
-        return (
-          <SwiperSlide key={index}>
-            <div className='grid h-full grid-cols-1 gap-4 sm:grid-cols-2'>
-              {slide.images.map((image, index) => {
-                return (
-                  <a
-                    className='group relative flex min-h-0 flex-col overflow-hidden border border-white/10 bg-secondary'
-                    href={image.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    key={image.title}
-                  >
-                    <div className='relative min-h-0 flex-1 overflow-hidden'>
-                      <Image
-                        src={image.path}
-                        fill
-                        sizes='(min-width: 640px) 42vw, 90vw'
-                        alt={`${image.title} preview`}
-                        className='object-cover transition-transform duration-500 group-hover:scale-[1.03]'
-                      />
-                    </div>
-                    <div className='flex items-center justify-between gap-4 px-4 py-3'>
-                      <div>
-                        <h3 className='text-sm font-semibold text-white'>{image.title}</h3>
-                        <p className='mt-1 text-xs text-white/50'>{image.category}</p>
-                      </div>
-                      <BsArrowRight className='shrink-0 text-xl text-accent transition-transform group-hover:translate-x-1' aria-hidden='true' />
-                    </div>
-                  </a>
-                );
-              })}
+    <section aria-label='Selected projects' className='grid gap-5 sm:grid-cols-2 xl:grid-cols-3'>
+      {projects.map((project, index) => (
+        <article id={project.id} key={project.id} className='scroll-mt-8'>
+          <a
+            href={project.url}
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label={`${project.title}, opens in a new tab`}
+            className='group block h-full border border-white/10 bg-secondary transition-colors hover:border-accent/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+          >
+            <div className='relative aspect-[4/3] overflow-hidden bg-primary'>
+              <Image
+                src={project.path}
+                fill
+                sizes='(min-width: 1280px) 32vw, (min-width: 640px) 48vw, 92vw'
+                alt={`${project.title} preview`}
+                className='object-cover transition-transform duration-500 group-hover:scale-[1.03]'
+              />
             </div>
-          </SwiperSlide>
-        );
-      })}
-    </Swiper>
+            <div className='flex min-h-24 items-center justify-between gap-4 px-4 py-4'>
+              <div>
+                <p className='mb-1 text-xs font-mono text-accent'>0{index + 1} / {project.category}</p>
+                <h2 className='text-base font-semibold text-white'>{project.title}</h2>
+              </div>
+              <HiArrowUpRight
+                className='shrink-0 text-xl text-white/60 transition-colors group-hover:text-accent'
+                aria-hidden='true'
+              />
+            </div>
+          </a>
+        </article>
+      ))}
+    </section>
   );
 };
 
