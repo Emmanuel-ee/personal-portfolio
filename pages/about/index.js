@@ -77,8 +77,6 @@ export const aboutData = [
   },
 ];
 
-// components
-import Avatar from '../../components/Avatar';
 import Circles from '../../components/Circles';
 
 // framer motion
@@ -93,16 +91,6 @@ const About = () => {
   return (
     <main className='min-h-full bg-primary/30 px-4 pb-32 pt-28 text-center sm:px-8 sm:pt-32 xl:px-0 xl:py-32 xl:text-left'>
       <Circles />
-      {/* avatar img */}
-      <motion.div
-        variants={fadeIn('right', 0.2)}
-        initial='hidden'
-        animate='show'
-        exit='hidden'
-        className='hidden xl:flex absolute bottom-0 -left-[370px]'
-      >
-        <Avatar />
-      </motion.div>
       <div className='container mx-auto flex min-h-full flex-col items-center gap-x-6 gap-y-8 xl:flex-row'>
         {/* text */}
         <div className='flex-1 flex flex-col justify-center'>

@@ -1,54 +1,153 @@
-// components
-import Circles from '/components/Circles';
-
-// icons
-import { BsArrowRight } from 'react-icons/bs';
-
-// framer
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-
-// variants
+import { BsArrowRight } from 'react-icons/bs';
 import { fadeIn } from '../../variants';
 
+const Avatar = dynamic(() => import('../../components/Avatar'), {
+  ssr: false,
+  loading: () => <div className='h-[260px] w-full sm:h-[340px] lg:h-[460px]' aria-hidden='true' />,
+});
+
 const Contact = () => {
+  const [status, setStatus] = useState({ type: 'idle', message: '' });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setStatus({ type: 'sending', message: 'Sending your message...' });
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(formData.entries())),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Your message could not be sent. Please try again.');
+      }
+
+      form.reset();
+      setStatus({ type: 'success', message: 'Thanks for reaching out. Your message has been sent.' });
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: error.message || 'Something went wrong. Please email me directly instead.',
+      });
+    }
+  };
+
   return (
     <main className='min-h-full bg-primary/30 px-4 pb-32 pt-28 sm:px-8 sm:pt-32'>
-      <div className='container mx-auto flex min-h-full flex-col items-center justify-center py-8 text-center xl:text-left'>
-        {/* text & form */}
-        <div className='flex flex-col w-full max-w-[700px]'>
-          {/* text */}
+      <div className='container mx-auto grid min-h-full max-w-6xl items-center gap-8 py-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(260px,0.8fr)] lg:gap-12'>
+        <section className='mx-auto w-full max-w-2xl'>
           <motion.h2
             variants={fadeIn('up', 0.2)}
             initial='hidden'
             animate='show'
             exit='hidden'
-            className='h2 text-center mb-12'
+            className='h2 mb-3 text-left'
           >
-            Let&apos;s <span className='text-accent'>connect.</span>
+            Let&apos;s talk about what you&apos;re building.
           </motion.h2>
-          {/* form */}
+          <p className='mb-6 max-w-xl text-left'>
+            Have a project, opportunity, or question? Send a note and I&apos;ll get back to you.
+            You can also reach me at{' '}
+            <a className='text-accent underline underline-offset-4' href='mailto:ememeemmanuel3@gmail.com'>
+              ememeemmanuel3@gmail.com
+            </a>.
+          </p>
           <motion.form
+            onSubmit={handleSubmit}
             variants={fadeIn('up', 0.4)}
             initial='hidden'
             animate='show'
             exit='hidden'
-            className='flex-1 flex flex-col gap-6 w-full mx-auto'
+            className='flex w-full flex-col gap-4'
           >
-            {/* input group */}
-            <div className='flex w-full flex-col gap-4 sm:flex-row sm:gap-x-6'>
-              <input type='text' placeholder='name' className='input' />
-              <input type='text' placeholder='email' className='input' />
+            <div className='grid gap-4 sm:grid-cols-2'>
+              <label className='flex flex-col gap-2 text-left text-sm text-white/75' htmlFor='contact-name'>
+                Your name
+                <input
+                  id='contact-name'
+                  name='name'
+                  type='text'
+                  autoComplete='name'
+                  maxLength={100}
+                  required
+                  className='input normal-case'
+                />
+              </label>
+              <label className='flex flex-col gap-2 text-left text-sm text-white/75' htmlFor='contact-email'>
+                Email address
+                <input
+                  id='contact-email'
+                  name='email'
+                  type='email'
+                  autoComplete='email'
+                  maxLength={254}
+                  required
+                  className='input normal-case'
+                />
+              </label>
             </div>
-            <input type='text' placeholder='subject' className='input' />
-            <textarea placeholder='message' className='textarea'></textarea>
-            <button className='btn rounded-full border border-white/50 max-w-[170px] px-8 transition-all duration-300 flex items-center justify-center overflow-hidden hover:border-accent group'>
-              <span className='group-hover:-translate-y-[120%] group-hover:opacity-0 transition-all duration-500'>
-                Let&apos;s talk
-              </span>
-              <BsArrowRight className='-translate-y-[120%] opacity-0 group-hover:flex group-hover:-translate-y-0 group-hover:opacity-100 transition-all duration-300 absolute text-[22px]' />
-            </button>
+            <label className='flex flex-col gap-2 text-left text-sm text-white/75' htmlFor='contact-subject'>
+              Subject
+              <input
+                id='contact-subject'
+                name='subject'
+                type='text'
+                maxLength={160}
+                required
+                className='input normal-case'
+              />
+            </label>
+            <label className='flex flex-col gap-2 text-left text-sm text-white/75' htmlFor='contact-message'>
+              Message
+              <textarea
+                id='contact-message'
+                name='message'
+                maxLength={5000}
+                required
+                className='textarea normal-case'
+              />
+            </label>
+            <div className='absolute -left-[10000px]' aria-hidden='true'>
+              <label htmlFor='contact-website'>Leave this field empty</label>
+              <input id='contact-website' name='website' type='text' tabIndex='-1' autoComplete='off' />
+            </div>
+            <div className='flex flex-col items-start gap-3 sm:flex-row sm:items-center'>
+              <button
+                type='submit'
+                disabled={status.type === 'sending'}
+                className='inline-flex h-12 items-center gap-3 bg-accent px-5 font-semibold text-primary transition-colors hover:bg-white disabled:cursor-wait disabled:opacity-60'
+              >
+                {status.type === 'sending' ? 'Sending...' : 'Send message'}
+                <BsArrowRight aria-hidden='true' />
+              </button>
+              <p
+                role='status'
+                aria-live='polite'
+                className={`min-h-6 text-sm ${status.type === 'error' ? 'text-red-300' : status.type === 'success' ? 'text-accent' : 'text-white/60'}`}
+              >
+                {status.message}
+              </p>
+            </div>
           </motion.form>
-        </div>
+        </section>
+        <motion.aside
+          variants={fadeIn('up', 0.3)}
+          initial='hidden'
+          animate='show'
+          exit='hidden'
+          className='mx-auto w-full max-w-[340px] lg:max-w-none'
+          aria-label='Interactive 3D phone model'
+        >
+          <Avatar />
+        </motion.aside>
       </div>
     </main>
   );

@@ -63,21 +63,21 @@ const Home = () => {
             variants={fadeIn('up', 0.35)}
             initial='hidden'
             animate='show'
-            className='relative mx-auto w-full max-w-[440px] xl:mr-0'
+            className='relative mx-auto w-full max-w-[240px] sm:max-w-[300px] xl:mr-0 xl:max-w-[320px]'
           >
-            <div className='absolute -left-4 -top-4 h-full w-full border border-accent/50 sm:-left-5 sm:-top-5' />
+            <div className='absolute -left-3 -top-3 h-full w-full border border-accent/35 sm:-left-4 sm:-top-4' />
             <div className='relative aspect-[4/5] overflow-hidden bg-secondary'>
               <Image
                 src='/profile-picture.png'
                 alt='Emmanuel Cyprian'
                 fill
                 priority
-                sizes='(min-width: 1280px) 440px, (min-width: 640px) 70vw, 88vw'
+                sizes='(min-width: 1280px) 320px, (min-width: 640px) 300px, 240px'
                 className='object-cover'
               />
             </div>
             <p className='mt-4 text-xs font-medium uppercase tracking-[0.16em] text-white/50'>
-              Emmanuel Cyprian <span className='px-2 text-accent'>/</span> Engineer &amp; builder
+              Engineer <span className='px-2 text-accent'>/</span> Builder
             </p>
           </motion.div>
         </div>
