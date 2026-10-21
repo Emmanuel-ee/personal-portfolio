@@ -7,7 +7,7 @@ export const projects = [
     title: 'NASA Project',
     category: 'Software project',
     path: '/Nasa.jpg',
-    url: 'https://github.com/Emmanuel-ee/Nasa-Project',
+    url: 'https://nasa-project-wxjm.onrender.com/launch',
   },
   {
     id: 'self-calibrating-interface',
