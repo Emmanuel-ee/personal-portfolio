@@ -22,16 +22,16 @@ const Layout = ({ children }) => {
       className={`page bg-site text-white bg-cover bg-no-repeat ${sora.variable} font-sora relative`}
     >
       <Head>
-        <title>Emmanuel Cyprian | Software Engineer</title>
+        <title>Emmanuel Cyprian Ememe | Software Engineer</title>
         <meta
           name='description'
-          content='Emmanuel Cyprian is a software engineer and builder working across digital products, web development, cloud systems, data, and applied AI.'
+          content='Emmanuel is a software engineer and builder working across digital products, web development, cloud systems, data, and applied AI.'
         />
       </Head>
       <TopLeftImg />
       <Link
         href='/'
-        aria-label='Return to Emmanuel Cyprian home page'
+        aria-label="Return to Emmanuel's home page"
         className='fixed left-4 top-4 z-[60] inline-flex min-h-11 items-center gap-2 text-white transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:left-8 sm:top-6'
       >
         <HiHome className='text-lg text-accent' aria-hidden='true' />

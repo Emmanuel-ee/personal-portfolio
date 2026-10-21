@@ -8,6 +8,10 @@ const Avatar = dynamic(() => import('../../components/Avatar'), {
   ssr: false,
   loading: () => <div className='h-[260px] w-full sm:h-[340px] lg:h-[460px]' aria-hidden='true' />,
 });
+const SphereScene = dynamic(() => import('../../components/SphereScene'), {
+  ssr: false,
+  loading: () => <div className='h-[150px] w-full' aria-hidden='true' />,
+});
 
 const Contact = () => {
   const [status, setStatus] = useState({ type: 'idle', message: '' });
@@ -81,9 +85,6 @@ const Contact = () => {
           </motion.h2>
           <p className='mb-6 max-w-xl text-left'>
             Have a project, opportunity, or question? Send a note and I&apos;ll get back to you.
-            <a className='text-accent underline underline-offset-4' href='mailto:ememeemmanuel3@gmail.com'>
-              ememeemmanuel3@gmail.com
-            </a>.
           </p>
           <motion.form
             onSubmit={handleSubmit}
@@ -172,6 +173,14 @@ const Contact = () => {
           aria-label='Interactive 3D phone model'
         >
           <Avatar />
+          <div className='mx-auto mt-2 w-full max-w-[280px]'>
+            <p className='mb-1 text-center text-xs font-semibold uppercase tracking-[0.16em] text-white/50'>
+              Interactive web experiment
+            </p>
+            <div className='h-[150px] w-full sm:h-[180px]' aria-label='Animated Three.js sphere'>
+              <SphereScene />
+            </div>
+          </div>
         </motion.aside>
       </div>
     </main>
