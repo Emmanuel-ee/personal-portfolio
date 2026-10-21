@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Header from '../components/Header';
 import { motion } from 'framer-motion';
 import { HiArrowRight, HiArrowUpRight } from 'react-icons/hi2';
-import WorkSlider, { featuredProjects } from '../components/WorkSlider';
+import WorkSlider from '../components/WorkSlider';
 import { fadeIn } from '../variants';
 
 const Home = () => {
@@ -83,7 +83,7 @@ const Home = () => {
             animate='show'
             className='w-full'
           >
-            <WorkSlider projects={featuredProjects} />
+            <WorkSlider />
           </motion.div>
         </section>
 

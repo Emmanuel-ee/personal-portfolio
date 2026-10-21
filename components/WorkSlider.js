@@ -1,7 +1,7 @@
 import { HiArrowUpRight } from 'react-icons/hi2';
 import Image from 'next/image';
 
-export const featuredProjects = [
+export const projects = [
   {
     id: 'nasa-project',
     title: 'NASA Project',
@@ -25,63 +25,7 @@ export const featuredProjects = [
   },
 ];
 
-export const repositories = [
-  { name: 'personal-portfolio', language: 'JavaScript' },
-  { name: 'Nasa-Project', language: 'JavaScript' },
-  { name: 'Trillo', language: 'SCSS' },
-  { name: 'Nexter', language: 'CSS' },
-  { name: 'Natours', language: 'CSS' },
-  { name: 'ML-Data-Science', language: 'Jupyter Notebook' },
-  { name: 'coventrycelebkids', language: 'JavaScript' },
-  { name: 'coventrycelebkidsinstructors', language: 'JavaScript' },
-  { name: 'cci' },
-  { name: 'Reality', language: 'JavaScript' },
-  { name: 'software-engineer-community', fork: true },
-  { name: 'c-.net-app' },
-  { name: 'self-calibrating', language: 'JavaScript' },
-  { name: 'c', language: 'C' },
-  { name: 'cicd-react', language: 'JavaScript' },
-  { name: 'drawing-pad', language: 'JavaScript' },
-  { name: 'self-calibrating-02', language: 'JavaScript' },
-  { name: 'fast-api', language: 'Python' },
-  { name: 'nest-prisma' },
-  { name: 'Typescript-express-server', language: 'TypeScript' },
-  { name: 'C-template', language: 'C++' },
-  { name: 'Web-sockets-graphql', language: 'JavaScript' },
-  { name: 'graphql', language: 'JavaScript' },
-  { name: 'AWS-SES-EC2-CDK-TYPESCRIPT', language: 'TypeScript' },
-  { name: 'AWS-SNS-SOLUTION', language: 'TypeScript' },
-  { name: 'web-mapping-application-Geoserver' },
-  { name: 'JAVA-REACT-SPRINGBOOT', language: 'Java' },
-  { name: 'Test', language: 'TypeScript' },
-  { name: 'myCompany', language: 'CSS' },
-  { name: 'My-portfolio', language: 'JavaScript' },
-  { name: 'terraform-exercise' },
-  { name: 'Docker-node-mongodb', language: 'JavaScript' },
-  { name: 'space-finder-frontend', language: 'TypeScript' },
-  { name: 'space-finder-backend', language: 'TypeScript' },
-  { name: 'cdk-jest-test', language: 'TypeScript' },
-  { name: 'Developer', language: 'JavaScript' },
-  { name: 'web-dev' },
-  { name: 'Keeper-App-Motoko-Backend-ICP', language: 'JavaScript' },
-  { name: 'Defi-ICP', language: 'JavaScript' },
-  { name: 'icp-examples', fork: true },
-  { name: 'Keeper-App', language: 'JavaScript' },
-  { name: 'Secrets---Authentication_and_Security', language: 'EJS' },
-  { name: 'RESTapi-Sample', language: 'JavaScript' },
-  { name: 'aws-cdk-testing-examples', fork: true },
-  { name: 'Blog', language: 'JavaScript' },
-  { name: 'todo-list--serverSide-ejs', language: 'JavaScript' },
-  { name: 'mongoose', language: 'JavaScript' },
-  { name: 'mongoDbDriver-Node', language: 'JavaScript' },
-  { name: 'Task-Manager', language: 'JavaScript' },
-  { name: 'node', language: 'JavaScript' },
-  { name: 'Knowledge', language: 'JavaScript' },
-  { name: 'Study', language: 'JavaScript' },
-  { name: 'openvault', fork: true },
-];
-
-const WorkSlider = ({ projects = featuredProjects }) => {
+const WorkSlider = () => {
   return (
     <section aria-label='Selected projects' className='grid gap-5 sm:grid-cols-2 xl:grid-cols-3'>
       {projects.map((project, index) => (

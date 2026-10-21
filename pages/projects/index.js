@@ -1,4 +1,4 @@
-import WorkSlider, { featuredProjects, repositories } from '../../components/WorkSlider';
+import WorkSlider, { projects } from '../../components/WorkSlider';
 import Circles from '../../components/Circles';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
@@ -33,8 +33,8 @@ const Work = () => {
           </a>
         </motion.div>
 
-        <nav aria-label='Jump to a featured project' className='mb-8 flex flex-wrap gap-x-6 gap-y-3 text-sm'>
-          {featuredProjects.map((project, index) => (
+        <nav aria-label='Jump to a project' className='mb-8 flex flex-wrap gap-x-6 gap-y-3 text-sm'>
+          {projects.map((project, index) => (
             <a
               key={project.id}
               href={`#${project.id}`}
@@ -52,39 +52,8 @@ const Work = () => {
           animate='show'
           exit='hidden'
         >
-          <WorkSlider projects={featuredProjects} />
+          <WorkSlider />
         </motion.div>
-
-        <section aria-labelledby='repository-archive-heading' className='mt-12 border-t border-white/15 pt-8'>
-          <div className='mb-5 flex flex-wrap items-end justify-between gap-3'>
-            <div>
-              <p className='mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent'>
-                Full archive
-              </p>
-              <h2 id='repository-archive-heading' className='text-2xl font-semibold text-white sm:text-3xl'>
-                Public repositories
-              </h2>
-            </div>
-            <p className='text-sm text-white/50'>{repositories.length} repositories</p>
-          </div>
-          <ul className='grid gap-2 sm:grid-cols-2 xl:grid-cols-3'>
-            {repositories.map((repository) => (
-              <li key={repository.name}>
-                <a
-                  href={`https://github.com/Emmanuel-ee/${repository.name}`}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='flex min-h-14 items-center justify-between gap-3 border border-white/10 bg-secondary/60 px-4 py-3 transition-colors hover:border-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
-                >
-                  <span className='break-all text-sm font-medium text-white'>{repository.name}</span>
-                  <span className='shrink-0 text-right text-xs text-white/45'>
-                    {repository.fork ? 'Fork' : repository.language || 'Repository'}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
       </div>
     </main>
   );
