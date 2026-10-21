@@ -1,44 +1,81 @@
 import { useEffect, useRef, useState } from 'react';
-import { HiMiniMicrophone, HiPaperAirplane, HiSparkles } from 'react-icons/hi2';
+import Link from 'next/link';
+import {
+  HiArrowUpRight,
+  HiMiniMicrophone,
+  HiPaperAirplane,
+  HiSparkles,
+} from 'react-icons/hi2';
 
-const getBotReply = (message) => {
-  const text = message.toLowerCase();
+const BOOKING_URL = 'https://calendar.app.google/DZNvXZdjJ7vQ5paF8';
+const QUICK_PROMPTS = [
+  'What does Emmanuel do?',
+  'Show me his projects',
+  'How can I book a call?',
+];
 
-  if (text.includes('name') || text.includes('who are you')) {
-    return 'I am Emmanuel Cyprian\'s portfolio assistant. I can tell you about his AI projects, engineering experience, and how to contact him.';
+const renderMessage = (text) => {
+  const linkPattern = /\[([^\]]+)\]\((\/(?:about|projects|contact)?|https:\/\/calendar\.app\.google\/DZNvXZdjJ7vQ5paF8)\)/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkPattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+
+    const [, label, href] = match;
+    parts.push(
+      href === BOOKING_URL ? (
+        <a
+          key={`${match.index}-${href}`}
+          href={href}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='font-medium text-accent underline underline-offset-4 hover:text-white'
+        >
+          {label} <HiArrowUpRight className='inline' aria-hidden='true' />
+        </a>
+      ) : (
+        <Link
+          key={`${match.index}-${href}`}
+          href={href}
+          className='font-medium text-accent underline underline-offset-4 hover:text-white'
+        >
+          {label}
+        </Link>
+      ),
+    );
+    lastIndex = linkPattern.lastIndex;
   }
 
-  if (text.includes('ai') || text.includes('ml') || text.includes('machine learning')) {
-    return 'Emmanuel is an AI and machine learning software engineer and consultant. He works with Python, applied AI, ML pipelines, AI-powered interfaces, and intelligent automation, with a strong software engineering foundation.';
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
   }
 
-  if (text.includes('software engineer') || text.includes('role') || text.includes('title')) {
-    return 'Emmanuel is a Software Engineer at the Office for National Statistics (ONS), where he has worked since 2020. His focus includes AI and machine learning engineering, full-stack software, and technical consulting.';
-  }
-
-  if (text.includes('project') || text.includes('work')) {
-    return 'His work spans AI-integrated software, machine learning pipelines, data-driven tools, and full-stack applications built with Python, React, Next.js, APIs, and cloud architecture.';
-  }
-
-  if (text.includes('contact') || text.includes('hire') || text.includes('email') || text.includes('consult')) {
-    return 'Emmanuel is open to AI and software consulting, collaborations, and engineering opportunities. Use the contact page to send a message or book a free 30-minute call.';
-  }
-
-  return 'Great question. Ask me about Emmanuel\'s AI/ML background, software engineering experience, projects, or how to get in touch.';
+  return parts;
 };
 
 const AIChatAssistant = () => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [isListening, setIsListening] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [error, setError] = useState('');
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      text: 'Hi! I\'m your AI assistant. Ask me anything about Emmanuel Cyprian and his work.',
+      text: 'Hi, I’m Em’s AI Guide. Ask me about Emmanuel’s AI and machine learning work, experience, or projects—or ask me to help you find something on this site.',
     },
   ]);
 
   const recognitionRef = useRef(null);
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isSending]);
 
   useEffect(() => {
     return () => {
@@ -48,29 +85,42 @@ const AIChatAssistant = () => {
     };
   }, []);
 
-  const speakResponse = (text) => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 1;
-    utterance.pitch = 1;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
-  };
-
-  const sendMessage = (message) => {
+  const sendMessage = async (message) => {
     const cleaned = message.trim();
-    if (!cleaned) return;
+    if (!cleaned || isSending) return;
 
-    const reply = getBotReply(cleaned);
-
-    setMessages((prev) => [
-      ...prev,
-      { role: 'user', text: cleaned },
-      { role: 'assistant', text: reply },
-    ]);
-
+    const nextMessages = [...messages, { role: 'user', text: cleaned }];
+    setMessages(nextMessages);
     setInput('');
-    speakResponse(reply);
+    setError('');
+    setIsSending(true);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: nextMessages
+            .slice(1)
+            .slice(-12)
+            .map(({ role, text }) => ({ role, content: text })),
+        }),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'The assistant could not answer just now.');
+      }
+
+      setMessages((current) => [
+        ...current,
+        { role: 'assistant', text: result.reply },
+      ]);
+    } catch (requestError) {
+      setError(requestError.message || 'Could not reach the assistant. Please try again.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const startVoiceInput = () => {
@@ -80,13 +130,7 @@ const AIChatAssistant = () => {
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          text: 'Voice recognition is not supported in this browser. You can still type your question here.',
-        },
-      ]);
+      setError('Voice input is not supported in this browser. You can type your question instead.');
       return;
     }
 
@@ -95,14 +139,16 @@ const AIChatAssistant = () => {
     recognition.lang = 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-
     recognition.onstart = () => setIsListening(true);
     recognition.onend = () => setIsListening(false);
-
+    recognition.onerror = () => {
+      setIsListening(false);
+      setError('Voice input could not be started. Please type your question instead.');
+    };
     recognition.onresult = (event) => {
       const transcript = event?.results?.[0]?.[0]?.transcript || '';
       if (transcript) {
-        sendMessage(transcript);
+        setInput(transcript);
       }
     };
 
@@ -110,86 +156,135 @@ const AIChatAssistant = () => {
   };
 
   return (
-    <div className='fixed right-4 bottom-24 xl:bottom-8 z-[60] flex flex-col items-end gap-3'>
+    <div className='fixed bottom-24 right-4 z-[60] flex flex-col items-end gap-3 xl:bottom-8'>
       {open && (
-        <div className='w-[calc(100vw-2rem)] max-w-sm rounded-2xl border border-white/20 bg-[#14152a]/95 backdrop-blur-md shadow-2xl overflow-hidden'>
-          <div className='flex items-center justify-between border-b border-white/10 px-4 py-3'>
+        <section
+          aria-label='Em’s AI Guide chat'
+          className='flex max-h-[min(34rem,calc(100dvh-8rem))] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#141a17]/[0.98] shadow-2xl backdrop-blur-md'
+        >
+          <header className='flex items-center justify-between border-b border-white/10 px-4 py-3'>
             <div className='flex items-center gap-2'>
-              <HiSparkles className='text-accent text-lg' />
-              <p className='text-sm font-semibold text-white'>AI Portfolio Assistant</p>
+              <span className='flex h-9 w-9 items-center justify-center rounded-full border border-accent/30 bg-accent/10'>
+                <HiSparkles className='text-lg text-accent' aria-hidden='true' />
+              </span>
+              <div>
+                <h2 className='text-sm font-semibold text-white'>Em’s AI Guide</h2>
+                <p className='text-xs text-white/50'>Portfolio assistant</p>
+              </div>
             </div>
             <button
+              type='button'
               onClick={() => setOpen(false)}
-              className='text-white/70 hover:text-accent transition-colors text-sm'
-              aria-label='Close assistant'
+              className='min-h-11 min-w-11 text-sm text-white/70 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+              aria-label='Close chat'
             >
               Close
             </button>
-          </div>
+          </header>
 
-          <div className='h-64 overflow-y-auto px-4 py-3 space-y-3'>
+          <div
+            aria-live='polite'
+            aria-label='Conversation'
+            className='min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4'
+          >
             {messages.map((message, index) => (
               <div
                 key={`${message.role}-${index}`}
-                className={`rounded-xl px-3 py-2 text-sm leading-relaxed ${
+                className={`max-w-[90%] whitespace-pre-wrap rounded-xl px-3 py-2 text-sm leading-relaxed ${
                   message.role === 'assistant'
-                    ? 'bg-white/10 text-white'
-                    : 'bg-accent/20 text-white border border-accent/40 ml-6'
+                    ? 'bg-white/[0.08] text-white/90'
+                    : 'ml-auto border border-accent/30 bg-accent/10 text-white'
                 }`}
               >
-                {message.text}
+                {renderMessage(message.text)}
               </div>
             ))}
+            {isSending && (
+              <p className='text-sm text-white/50' role='status'>
+                Em’s AI Guide is thinking…
+              </p>
+            )}
+            {error && (
+              <p className='rounded-lg border border-red-300/20 bg-red-400/10 px-3 py-2 text-sm text-red-200' role='alert'>
+                {error}
+              </p>
+            )}
+            {messages.length === 1 && (
+              <div className='flex flex-wrap gap-2 pt-1'>
+                {QUICK_PROMPTS.map((prompt) => (
+                  <button
+                    key={prompt}
+                    type='button'
+                    onClick={() => sendMessage(prompt)}
+                    disabled={isSending}
+                    className='min-h-10 rounded-full border border-white/15 px-3 text-left text-xs text-white/70 transition-colors hover:border-accent/60 hover:text-accent disabled:opacity-50'
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
 
-          <div className='border-t border-white/10 p-3'>
+          <form
+            className='border-t border-white/10 p-3'
+            onSubmit={(event) => {
+              event.preventDefault();
+              sendMessage(input);
+            }}
+          >
             <div className='flex items-center gap-2'>
+              <label className='sr-only' htmlFor='portfolio-chat-input'>
+                Ask Em’s AI Guide a question
+              </label>
               <input
+                id='portfolio-chat-input'
                 type='text'
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    sendMessage(input);
-                  }
-                }}
-                placeholder='Ask about AI projects, skills, contact...'
-                className='flex-1 h-10 rounded-xl bg-white/10 border border-white/20 px-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:border-accent'
+                maxLength={1000}
+                onChange={(event) => setInput(event.target.value)}
+                placeholder='Ask about AI, experience, projects…'
+                className='h-11 min-w-0 flex-1 rounded-xl border border-white/20 bg-white/[0.06] px-3 text-sm text-white placeholder:text-white/45 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent'
               />
               <button
-                type='button'
-                onClick={() => sendMessage(input)}
-                className='h-10 w-10 rounded-xl bg-accent/90 hover:bg-accent text-white flex items-center justify-center transition-colors'
+                type='submit'
+                disabled={isSending || !input.trim()}
+                className='flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-primary transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50'
                 aria-label='Send message'
               >
-                <HiPaperAirplane />
+                <HiPaperAirplane aria-hidden='true' />
               </button>
               <button
                 type='button'
                 onClick={startVoiceInput}
-                className={`h-10 w-10 rounded-xl border text-white flex items-center justify-center transition-colors ${
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                   isListening
-                    ? 'border-accent bg-accent/30'
-                    : 'border-white/30 hover:border-accent'
+                    ? 'border-accent bg-accent/20 text-accent'
+                    : 'border-white/20 text-white/75 hover:border-accent hover:text-accent'
                 }`}
-                aria-label='Start voice input'
-                title='Speak your question'
+                aria-label={isListening ? 'Listening for a question' : 'Ask by voice'}
+                title='Ask by voice'
               >
-                <HiMiniMicrophone />
+                <HiMiniMicrophone aria-hidden='true' />
               </button>
             </div>
-          </div>
-        </div>
+            <p className='px-1 pt-2 text-[10px] leading-relaxed text-white/40'>
+              AI replies are powered by Anthropic. Please don&apos;t share sensitive information.
+            </p>
+          </form>
+        </section>
       )}
 
       <button
-        onClick={() => setOpen((prev) => !prev)}
-        className='h-14 px-5 rounded-full bg-accent text-white shadow-xl border border-white/20 hover:scale-105 transition-transform flex items-center gap-2'
-        aria-label='Open AI assistant'
+        type='button'
+        onClick={() => setOpen((previous) => !previous)}
+        className='flex h-14 items-center gap-2 rounded-full border border-white/20 bg-accent px-5 text-primary shadow-xl transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white'
+        aria-label={open ? 'Close Em’s AI Guide' : 'Chat with Em’s AI Guide'}
+        aria-expanded={open}
       >
-        <HiSparkles className='text-xl' />
-        <span className='text-sm font-medium'>AI Chat</span>
+        <HiSparkles className='text-xl' aria-hidden='true' />
+        <span className='text-sm font-semibold'>Ask Em</span>
       </button>
     </div>
   );
