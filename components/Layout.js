@@ -22,10 +22,10 @@ const Layout = ({ children }) => {
       className={`page bg-site text-white bg-cover bg-no-repeat ${sora.variable} font-sora relative`}
     >
       <Head>
-        <title>Emmanuel Cyprian Ememe | Software Engineer</title>
+        <title>Emmanuel Cyprian Ememe | AI &amp; Machine Learning Software Engineer</title>
         <meta
           name='description'
-          content='Emmanuel is a software engineer and builder working across digital products, web development, cloud systems, data, and applied AI.'
+          content='Emmanuel Cyprian Ememe is an AI and machine learning software engineer and consultant, building practical AI solutions, ML pipelines, and full-stack software.'
         />
       </Head>
       <TopLeftImg />

@@ -1,38 +1,30 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { HiArrowRight, HiArrowUpRight } from 'react-icons/hi2';
+import { motion } from 'framer-motion';
+import CountUp from 'react-countup';
+import { fadeIn } from '../../variants';
 
-// icons
-import {
-  FaHtml5,
-  FaCss3,
-  FaJs,
-  FaReact,
-  FaWordpress,
-  FaFigma,
-  FaPython,
-} from 'react-icons/fa';
-
-import {
-  SiNextdotjs,
-  SiFramer,
-  SiAdobexd,
-  SiAdobephotoshop,
-} from 'react-icons/si';
-
-//  about data
 export const aboutData = [
   {
     title: 'skills',
     info: [
       {
-        title: 'Web Development',
-           // eslint-disable-next-line react/jsx-key
-        icons: [<FaHtml5 />, <FaCss3 />, <FaJs />, <FaPython />, <FaReact />, <SiNextdotjs />, <SiFramer />, <FaWordpress />, ],
+        title: 'AI & Machine Learning',
+        stack: ['Python', 'Applied AI', 'ML pipelines', 'AI-powered interfaces', 'Intelligent automation'],
       },
       {
-        title: 'UI/UX Design',
-        // eslint-disable-next-line react/jsx-key
-        icons: [<FaFigma />, <SiAdobexd />, <SiAdobephotoshop />],
+        title: 'Software Engineering',
+        stack: ['JavaScript', 'React', 'Next.js', 'HTML', 'CSS', 'WordPress', 'APIs'],
+      },
+      {
+        title: 'Consulting & Architecture',
+        stack: ['AI & software consulting', 'Technical discovery', 'Solution architecture', 'Cloud systems', 'Product delivery'],
+      },
+      {
+        title: 'Product & Design',
+        stack: ['Figma', 'Framer', 'Adobe XD', 'Photoshop'],
       },
     ],
   },
@@ -40,8 +32,12 @@ export const aboutData = [
     title: 'experience',
     info: [
       {
+        title: 'Software Engineer - Office for National Statistics (ONS)',
+        stage: '2020 - Present',
+      },
+      {
         title: 'Full stack Developer - Toptal',
-        stage: 'Mar 2020 - Date',
+        stage: 'Mar 2020 - Present',
       },
       {
         title: 'Solutions Architect - HypercoreIt',
@@ -54,7 +50,7 @@ export const aboutData = [
     ],
   },
   {
-    title: 'Education',
+    title: 'education',
     info: [
       {
         title: 'Bsc. Mechanical Engineering',
@@ -72,145 +68,215 @@ export const aboutData = [
         title: 'Msc. Business Administration',
         stage: '2022',
       },
-
     ],
   },
 ];
 
-import Circles from '../../components/Circles';
-
-// framer motion
-import { motion } from 'framer-motion';
-import { fadeIn } from '../../variants';
-
-// counter
-import CountUp from 'react-countup';
-
 const About = () => {
   const [index, setIndex] = useState(0);
-  return (
-    <main className='min-h-full bg-primary/30 px-4 pb-32 pt-28 text-center sm:px-8 sm:pt-32 xl:px-0 xl:py-32 xl:text-left'>
-      <Circles />
-      <div className='container mx-auto flex min-h-full flex-col items-center gap-x-6 gap-y-8 xl:flex-row'>
-        {/* text */}
-        <div className='flex-1 flex flex-col justify-center'>
-          <motion.h2
-            variants={fadeIn('right', 0.2)}
-            initial='hidden'
-            animate='show'
-            exit='hidden'
-            className='h2'
-          >
-            Captivating <span className='text-accent'>stories</span> birth
-            magnificent designs.
-          </motion.h2>
-          <motion.p
-            variants={fadeIn('right', 0.4)}
-            initial='hidden'
-            animate='show'
-            exit='hidden'
-            className='max-w-[500px] mx-auto xl:mx-0 mb-6 xl:mb-12 px-2 xl:px-0'
-          >
-            5 years ago, I began freelancing as a developer. Since then, I&apos;ve
-            done remote work for agencies, counsulted for startups, and
-            collaborated on digital products for business and consumer use.
-          </motion.p>
 
-          {/* counters */}
-          <motion.div
-            variants={fadeIn('right', 0.6)}
+  return (
+    <main className='relative min-h-full overflow-hidden bg-primary/30 px-4 pb-32 pt-28 sm:px-8 sm:pt-32 xl:px-0 xl:py-32'>
+      <div
+        aria-hidden='true'
+        className='pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(200,241,105,0.09),transparent_42%)]'
+      />
+      <div className='container relative mx-auto max-w-6xl'>
+        <section className='grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16'>
+          <div className='order-2 lg:order-1'>
+            <motion.p
+              variants={fadeIn('right', 0.1)}
+              initial='hidden'
+              animate='show'
+              className='mb-5 flex items-center justify-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent lg:justify-start'
+            >
+              <span className='h-px w-8 bg-accent' aria-hidden='true' />
+              AI &amp; machine learning engineer · Consultant
+            </motion.p>
+            <motion.h1
+              variants={fadeIn('right', 0.2)}
+              initial='hidden'
+              animate='show'
+              className='mx-auto mb-6 max-w-3xl text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl lg:mx-0 xl:text-7xl'
+            >
+              I engineer practical{' '}
+              <span className='text-accent'>AI and machine learning solutions.</span>
+            </motion.h1>
+            <motion.p
+              variants={fadeIn('right', 0.3)}
+              initial='hidden'
+              animate='show'
+              className='mx-auto mb-8 max-w-2xl text-base leading-8 text-white/65 sm:text-lg lg:mx-0'
+            >
+              I&apos;m Emmanuel, a software engineer at the Office for National
+              Statistics. I help teams explore where AI can make a difference,
+              then build and integrate machine-learning capabilities into
+              reliable software. I offer technical discovery and consulting
+              alongside hands-on engineering across Python, data pipelines,
+              full-stack applications, APIs, and cloud architecture.
+            </motion.p>
+            <motion.div
+              variants={fadeIn('right', 0.4)}
+              initial='hidden'
+              animate='show'
+              className='flex flex-wrap justify-center gap-3 lg:justify-start'
+            >
+              <Link
+                href='/projects'
+                className='inline-flex min-h-12 items-center gap-3 bg-accent px-5 font-semibold text-primary transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary'
+              >
+                Explore my work <HiArrowUpRight aria-hidden='true' />
+              </Link>
+              <Link
+                href='/contact'
+                className='inline-flex min-h-12 items-center gap-3 border border-white/20 px-5 font-medium text-white transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+              >
+                Send me a message <HiArrowRight aria-hidden='true' />
+              </Link>
+              <a
+                href='https://calendar.app.google/DZNvXZdjJ7vQ5paF8'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='inline-flex min-h-12 items-center gap-3 border border-accent/40 px-5 font-medium text-accent transition-colors hover:border-accent hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+              >
+                Book a free 30-minute call <HiArrowUpRight aria-hidden='true' />
+              </a>
+            </motion.div>
+          </div>
+
+          <motion.figure
+            variants={fadeIn('left', 0.25)}
             initial='hidden'
             animate='show'
-            exit='hidden'
-            className='hidden md:flex md:max-w-xl xl:max-w-none mx-auto xl:mx-0 mb-8'
+            className='relative order-1 mx-auto w-full max-w-md lg:order-2 lg:max-w-none'
           >
-            <div className='flex flex-1 xl:gap-x-6'>
-              {/* experience */}
-              <div className='relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0'>
-                <div className='text-2xl xl:text-4xl font-extrabold text-accent mb-2'>
-                  <CountUp start={0} end={5} duration={5} /> +
-                </div>
-                <div className='text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]'>
-                  Years of experience
-                </div>
+            <div className='absolute -right-3 -top-3 h-24 w-24 border-r border-t border-accent/60 sm:-right-5 sm:-top-5 sm:h-32 sm:w-32' aria-hidden='true' />
+            <div className='relative aspect-[4/4.5] overflow-hidden border border-white/10 bg-secondary'>
+              <Image
+                src='/profile-picture.png'
+                alt='Emmanuel Cyprian Ememe'
+                fill
+                priority
+                sizes='(min-width: 1024px) 40vw, (min-width: 640px) 70vw, 90vw'
+                className='object-cover'
+              />
+              <div className='absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary via-primary/80 to-transparent px-5 pb-5 pt-20 sm:px-7 sm:pb-7'>
+                <figcaption className='border-l-2 border-accent pl-4'>
+                  <p className='text-base font-semibold text-white'>
+                    Emmanuel Cyprian Ememe
+                  </p>
+                  <p className='mt-1 text-sm text-white/60'>
+                    AI engineering · machine learning · consulting
+                  </p>
+                </figcaption>
               </div>
-              {/* clients */}
-              <div className='relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0'>
-                <div className='text-2xl xl:text-4xl font-extrabold text-accent mb-2'>
-                  <CountUp start={0} end={30} duration={5} /> +
-                </div>
-                <div className='text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]'>
-                  Satisfied clients
-                </div>
-              </div>
-              {/* projects */}
-              <div className='relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0'>
-                <div className='text-2xl xl:text-4xl font-extrabold text-accent mb-2'>
-                  <CountUp start={0} end={50} duration={5} /> +
-                </div>
-                <div className='text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]'>
-                  Finished projects
-                </div>
-              </div>
-              {/* awards */}
             </div>
-          </motion.div>
-        </div>
-        {/* info */}
-        <motion.div
-          variants={fadeIn('left', 0.4)}
+            <div className='absolute -bottom-3 -left-3 h-16 w-16 border-b border-l border-accent/60 sm:-bottom-5 sm:-left-5 sm:h-24 sm:w-24' aria-hidden='true' />
+          </motion.figure>
+        </section>
+
+        <motion.section
+          variants={fadeIn('up', 0.45)}
           initial='hidden'
           animate='show'
-          exit='hidden'
-          className='flex h-auto min-h-[360px] w-full flex-col xl:h-[480px] xl:max-w-[48%]'
+          aria-label='Experience at a glance'
+          className='mt-16 grid grid-cols-1 border-y border-white/15 sm:grid-cols-3'
         >
-          <div role='tablist' aria-label='About information' className='mx-auto mb-4 flex gap-x-4 sm:gap-x-8 xl:mx-0'>
-            {aboutData.map((item, itemIndex) => {
-              return (
+          {[
+            { value: 5, label: 'Years of experience' },
+            { value: 30, label: 'Satisfied clients' },
+            { value: 50, label: 'Finished projects' },
+          ].map((stat, statIndex) => (
+            <div
+              key={stat.label}
+              className={`flex items-center justify-center gap-3 py-5 sm:py-6 ${statIndex > 0 ? 'border-t border-white/10 sm:border-l sm:border-t-0' : ''}`}
+            >
+              <span className='text-3xl font-semibold tracking-tight text-accent sm:text-4xl'>
+                <CountUp start={0} end={stat.value} duration={4} />+
+              </span>
+              <span className='max-w-[110px] text-xs uppercase leading-relaxed tracking-[0.12em] text-white/55'>
+                {stat.label}
+              </span>
+            </div>
+          ))}
+        </motion.section>
+
+        <section className='mt-16 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16'>
+          <div>
+            <p className='mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-accent'>
+              The person behind the work
+            </p>
+            <h2 className='mb-4 text-3xl font-semibold leading-tight text-white sm:text-4xl'>
+              AI that solves the right problem.
+            </h2>
+            <p className='max-w-lg text-sm leading-7 text-white/60 sm:text-base'>
+              I combine software engineering with AI and machine learning
+              practice to help teams move from an opportunity or early idea to
+              a considered technical approach. Through consulting and hands-on
+              delivery, I focus on building useful, maintainable solutions
+              grounded in real user and business needs.
+            </p>
+          </div>
+
+          <div className='border border-white/10 bg-primary/40 p-5 sm:p-8'>
+            <div
+              role='tablist'
+              aria-label='About information'
+              className='mb-7 flex flex-wrap gap-x-6 gap-y-2 border-b border-white/10'
+            >
+              {aboutData.map((item, itemIndex) => (
                 <button
                   type='button'
                   role='tab'
                   id={`about-tab-${itemIndex}`}
                   aria-selected={index === itemIndex}
                   aria-controls='about-panel'
-                  key={itemIndex}
-                  className={`relative min-h-11 px-1 text-sm capitalize after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent xl:text-lg ${index === itemIndex ? 'text-accent after:w-full after:bg-accent' : 'text-white/70 after:w-8 after:bg-white/70'}`}
+                  key={item.title}
+                  className={`relative min-h-12 text-sm capitalize transition-colors after:absolute after:-bottom-px after:left-0 after:h-0.5 after:transition-all hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${index === itemIndex ? 'text-accent after:w-full after:bg-accent' : 'text-white/55 after:w-0 after:bg-accent'}`}
                   onClick={() => setIndex(itemIndex)}
                 >
                   {item.title}
                 </button>
-              );
-            })}
-          </div>
-          <div id='about-panel' role='tabpanel' aria-labelledby={`about-tab-${index}`} className='flex flex-col items-center gap-y-2 py-2 xl:items-start xl:gap-y-4 xl:py-6'>
-            {aboutData[index].info.map((item, itemIndex) => {
-              return (
+              ))}
+            </div>
+            <div
+              id='about-panel'
+              role='tabpanel'
+              tabIndex={0}
+              aria-labelledby={`about-tab-${index}`}
+              className='space-y-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+            >
+              {aboutData[index].info.map((item) => (
                 <div
-                  key={itemIndex}
-                  className='flex w-full max-w-full flex-col items-center gap-x-2 text-white/60 md:flex-row md:justify-center xl:justify-start'
+                  key={item.title}
+                  className='flex flex-col gap-3 border-b border-white/10 pb-5 last:border-b-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between'
                 >
-                  {/* title */}
-                  <div className='mb-2 font-light md:mb-0'>{item.title}</div>
-                  <div className='hidden md:flex'>-</div>
-                  <div>{item.stage}</div>
-                  <div className='flex gap-x-4'>
-                   {/* eslint-disable-next-line react/jsx-key */}
-                    {item.icons?.map((icon, itemIndex) => {
-                      return <div key={itemIndex} className='text-2xl text-white'>{icon}</div>;
-                    })}
+                  <div>
+                    <h3 className='font-medium text-white'>{item.title}</h3>
+                    {item.stage && (
+                      <p className='mt-1 text-sm text-white/45'>{item.stage}</p>
+                    )}
                   </div>
+                  {item.stack && (
+                    <div
+                      className='flex flex-wrap gap-2 sm:max-w-[65%] sm:justify-end'
+                      aria-label={`${item.title} skills and technologies`}
+                    >
+                      {item.stack.map((skill) => (
+                        <span
+                          key={skill}
+                          className='border border-white/10 bg-white/[0.03] px-2.5 py-1.5 text-xs text-white/65 transition-colors hover:border-accent/60 hover:text-accent'
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
-          <Image
-            src={'/profile-picture.png'}
-            width={100}
-            height={60}
-            className='w-40 h-40 rounded-full'
-            alt='Profile Picture'
-          />
-        </motion.div>
+        </section>
       </div>
     </main>
   );

@@ -9,19 +9,19 @@ const getBotReply = (message) => {
   }
 
   if (text.includes('ai') || text.includes('ml') || text.includes('machine learning')) {
-    return 'Emmanuel builds practical AI products: ML pipelines, AI-powered interfaces, and intelligent automation systems. He keeps a strong software engineering foundation in every build.';
+    return 'Emmanuel is an AI and machine learning software engineer and consultant. He works with Python, applied AI, ML pipelines, AI-powered interfaces, and intelligent automation, with a strong software engineering foundation.';
   }
 
   if (text.includes('software engineer') || text.includes('role') || text.includes('title')) {
-    return 'Emmanuel\'s core title is Software Engineer, with strong specialization in Machine Learning and AI engineering.';
+    return 'Emmanuel is a Software Engineer at the Office for National Statistics (ONS), where he has worked since 2020. His focus includes AI and machine learning engineering, full-stack software, and technical consulting.';
   }
 
   if (text.includes('project') || text.includes('work')) {
-    return 'His featured work includes AI-integrated web products, data-driven decision tools, and interactive 3D user experiences powered by modern JavaScript and Python ecosystems.';
+    return 'His work spans AI-integrated software, machine learning pipelines, data-driven tools, and full-stack applications built with Python, React, Next.js, APIs, and cloud architecture.';
   }
 
-  if (text.includes('contact') || text.includes('hire') || text.includes('email')) {
-    return 'You can use the contact page to send Emmanuel a direct message for collaborations, consulting, or full-time opportunities.';
+  if (text.includes('contact') || text.includes('hire') || text.includes('email') || text.includes('consult')) {
+    return 'Emmanuel is open to AI and software consulting, collaborations, and engineering opportunities. Use the contact page to send a message or book a free 30-minute call.';
   }
 
   return 'Great question. Ask me about Emmanuel\'s AI/ML background, software engineering experience, projects, or how to get in touch.';

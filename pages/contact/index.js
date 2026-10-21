@@ -2,6 +2,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { BsArrowRight } from 'react-icons/bs';
+import { HiArrowUpRight } from 'react-icons/hi2';
 import { fadeIn } from '../../variants';
 
 const Avatar = dynamic(() => import('../../components/Avatar'), {
@@ -86,6 +87,15 @@ const Contact = () => {
           <p className='mb-6 max-w-xl text-left'>
             Have a project, opportunity, or question? Send a note and I&apos;ll get back to you.
           </p>
+          <a
+            href='https://calendar.app.google/DZNvXZdjJ7vQ5paF8'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='mb-8 inline-flex min-h-12 items-center gap-3 border border-accent/40 px-5 font-semibold text-accent transition-colors hover:border-accent hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+          >
+            Book a free 30-minute Google Meet call
+            <HiArrowUpRight aria-hidden='true' />
+          </a>
           <motion.form
             onSubmit={handleSubmit}
             variants={fadeIn('up', 0.4)}

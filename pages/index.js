@@ -18,7 +18,7 @@ const Home = () => {
               animate='show'
               className='mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent'
             >
-              Selected work · Product engineering
+              AI &amp; Machine Learning Software Engineer · Consultant
             </motion.p>
             <motion.h1
               variants={fadeIn('down', 0.2)}
@@ -26,7 +26,7 @@ const Home = () => {
               animate='show'
               className='mb-5 max-w-4xl text-4xl font-semibold leading-[1.08] sm:text-6xl xl:text-7xl'
             >
-              Software, products, and systems made for real-world use.
+              Practical AI, machine learning, and software engineering.
             </motion.h1>
             <motion.p
               variants={fadeIn('down', 0.3)}
@@ -34,9 +34,11 @@ const Home = () => {
               animate='show'
               className='mb-7 max-w-2xl text-base leading-7 text-white/65 sm:text-lg'
             >
-              A cross-disciplinary portfolio spanning software development, interactive
-              experiences, cloud systems, data, and applied AI, from early concepts through
-              dependable delivery.
+              I help teams identify where AI can create real value, then engineer
+              machine-learning-powered features and full-stack applications to solve it.
+              My work spans Python, data and ML pipelines, React, Next.js, API integration,
+              and cloud architecture—from technical discovery and AI/software consulting
+              through implementation and delivery.
             </motion.p>
             <motion.div
               variants={fadeIn('down', 0.4)}
@@ -54,8 +56,16 @@ const Home = () => {
                 href='/contact'
                 className='inline-flex h-12 items-center gap-2 border border-white/20 px-5 text-sm text-white transition-colors hover:border-accent hover:text-accent'
               >
-                Discuss a project <HiArrowRight aria-hidden='true' />
+                Discuss AI consulting <HiArrowRight aria-hidden='true' />
               </Link>
+              <a
+                href='https://calendar.app.google/DZNvXZdjJ7vQ5paF8'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='inline-flex min-h-12 items-center gap-2 border border-accent/40 px-5 text-sm text-accent transition-colors hover:border-accent hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+              >
+                Book a free 30-minute call <HiArrowUpRight aria-hidden='true' />
+              </a>
             </motion.div>
           </div>
         </section>
@@ -67,7 +77,7 @@ const Home = () => {
                 Across disciplines
               </p>
               <h2 id='selected-work-heading' className='text-2xl font-semibold text-white sm:text-3xl'>
-                Selected work
+                Sample Work
               </h2>
             </div>
             <Link
@@ -92,10 +102,10 @@ const Home = () => {
             Practice areas
           </h2>
           <ul className='grid gap-3 text-sm text-white/80 sm:grid-cols-2 xl:grid-cols-4'>
-            <li>Software &amp; web development</li>
-            <li>Product &amp; interface design</li>
-            <li>Cloud &amp; solution architecture</li>
-            <li>Data, research &amp; applied AI</li>
+            <li>AI &amp; machine learning engineering</li>
+            <li>Full-stack software development</li>
+            <li>AI &amp; software consulting</li>
+            <li>Data pipelines &amp; cloud architecture</li>
           </ul>
         </section>
       </main>
