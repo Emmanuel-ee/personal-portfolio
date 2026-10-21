@@ -36,7 +36,20 @@ const Contact = () => {
           _template: 'table',
         }),
       });
-      const result = await response.json();
+      const responseText = await response.text();
+      let result;
+
+      try {
+        result = JSON.parse(responseText);
+      } catch {
+        const contentType = response.headers.get('content-type') || 'unknown content type';
+        const pageTitle = responseText.match(/<title[^>]*>(.*?)<\/title>/i)?.[1]?.trim();
+        const detail = pageTitle ? `: ${pageTitle}` : '';
+        throw new Error(
+          `The email service returned a web page instead of a delivery response (HTTP ${response.status}, ${contentType}${detail}). Please email me directly.`,
+        );
+      }
+
       const accepted = result.success === true || result.success === 'true';
 
       if (!response.ok || !accepted) {
