@@ -27,37 +27,35 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: 'Please check the form fields and try again.' });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL;
-
-  if (!apiKey || !from) {
-    return res.status(503).json({ message: 'Email delivery is not configured yet. Please email me directly.' });
-  }
-
   try {
-    const providerResponse = await fetch('https://api.resend.com/emails', {
+    const providerResponse = await fetch(`https://formsubmit.co/ajax/${recipient}`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
-        from,
-        to: [recipient],
-        reply_to: email.trim(),
-        subject: `[Portfolio] ${subject.trim()}`,
-        text: `Name: ${name.trim()}\nEmail: ${email.trim()}\n\n${message.trim()}`,
+        name: name.trim(),
+        email: email.trim(),
+        _replyto: email.trim(),
+        _subject: `[Portfolio] ${subject.trim()}`,
+        message: message.trim(),
+        _honey: website || '',
+        _template: 'table',
       }),
     });
 
-    if (!providerResponse.ok) {
-      console.error('Resend email request failed with status:', providerResponse.status);
+    const result = await providerResponse.json();
+    const accepted = result.success === true || result.success === 'true';
+
+    if (!providerResponse.ok || !accepted) {
+      console.error('FormSubmit rejected the contact message:', providerResponse.status);
       return res.status(502).json({ message: 'Email delivery failed. Please email me directly.' });
     }
 
     return res.status(200).json({ message: 'Message sent.' });
   } catch (error) {
-    console.error('Unable to reach the email provider:', error);
+    console.error('Unable to reach FormSubmit:', error);
     return res.status(502).json({ message: 'Email delivery failed. Please email me directly.' });
   }
 }
