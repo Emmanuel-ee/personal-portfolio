@@ -1,9 +1,10 @@
 const MAX_MESSAGES = 12;
-const MAX_MESSAGE_LENGTH = 1000;
+const MAX_QUESTION_LENGTH = 1000;
+const MAX_REPLY_LENGTH = 4000;
 const BOOKING_URL = 'https://calendar.app.google/DZNvXZdjJ7vQ5paF8';
 
 const portfolioContext = `
-You are Em's AI Guide, the clearly identified AI portfolio assistant for Emmanuel Cyprian Ememe. Answer questions about Emmanuel using only the portfolio facts below. Be warm, concise, professional, and useful to recruiters, collaborators, and potential consulting clients. Do not invent credentials, achievements, project details, employment details, availability, or claims about confidential work. If a detail is not listed, say so and offer the contact page.
+You are Em's AI Guide, the clearly identified AI portfolio assistant for Emmanuel Cyprian Ememe. Answer questions about Emmanuel using only the portfolio facts below. Reply directly in one or two short sentences, ideally under 50 words, including any relevant link. Answer only what was asked; skip greetings, filler, lists, and repeated background. Be professional and useful to recruiters, collaborators, and potential consulting clients. Do not invent credentials, achievements, project details, employment details, availability, or claims about confidential work. If a detail is not listed, say so briefly and offer the contact page.
 
 PROFILE
 - Emmanuel is an AI and machine learning software engineer and consultant.
@@ -44,7 +45,7 @@ const isValidConversation = (messages) => {
       message.role !== expectedRole ||
       typeof message.content !== 'string' ||
       !message.content.trim() ||
-      message.content.length > MAX_MESSAGE_LENGTH
+      message.content.length > (message.role === 'user' ? MAX_QUESTION_LENGTH : MAX_REPLY_LENGTH)
     ) {
       return false;
     }
@@ -52,13 +53,13 @@ const isValidConversation = (messages) => {
     totalLength += message.content.length;
   }
 
-  return messages[messages.length - 1].role === 'user' && totalLength <= 8000;
+  return messages[messages.length - 1].role === 'user' && totalLength <= 16000;
 };
 
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '16kb',
+      sizeLimit: '24kb',
     },
   },
 };
@@ -70,7 +71,9 @@ export default async function handler(req, res) {
   }
 
   if (!isValidConversation(req.body?.messages)) {
-    return res.status(400).json({ error: 'Please send a valid message and try again.' });
+    return res.status(400).json({
+      error: 'This chat could not process the conversation. Please refresh the page and try again. Questions must be 1,000 characters or fewer.',
+    });
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -92,7 +95,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model,
-        max_tokens: 600,
+        max_tokens: 180,
         system: portfolioContext,
         messages: req.body.messages,
       }),

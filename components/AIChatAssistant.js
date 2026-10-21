@@ -8,6 +8,8 @@ import {
 } from 'react-icons/hi2';
 
 const BOOKING_URL = 'https://calendar.app.google/DZNvXZdjJ7vQ5paF8';
+const MAX_QUESTION_LENGTH = 1000;
+const MAX_CONTEXT_REPLY_LENGTH = 4000;
 const QUICK_PROMPTS = [
   'What does Emmanuel do?',
   'Show me his projects',
@@ -88,6 +90,10 @@ const AIChatAssistant = () => {
   const sendMessage = async (message) => {
     const cleaned = message.trim();
     if (!cleaned || isSending) return;
+    if (cleaned.length > MAX_QUESTION_LENGTH) {
+      setError('Please shorten your question to 1,000 characters or fewer.');
+      return;
+    }
 
     const nextMessages = [...messages, { role: 'user', text: cleaned }];
     setMessages(nextMessages);
@@ -102,8 +108,11 @@ const AIChatAssistant = () => {
         body: JSON.stringify({
           messages: nextMessages
             .slice(1)
-            .slice(-12)
-            .map(({ role, text }) => ({ role, content: text })),
+            .slice(-6)
+            .map(({ role, text }) => ({
+              role,
+              content: role === 'assistant' ? text.slice(0, MAX_CONTEXT_REPLY_LENGTH) : text,
+            })),
         }),
       });
       const result = await response.json();
@@ -117,6 +126,8 @@ const AIChatAssistant = () => {
         { role: 'assistant', text: result.reply },
       ]);
     } catch (requestError) {
+      setMessages((current) => current.slice(0, -1));
+      setInput((current) => current || cleaned);
       setError(requestError.message || 'Could not reach the assistant. Please try again.');
     } finally {
       setIsSending(false);
@@ -242,7 +253,7 @@ const AIChatAssistant = () => {
                 id='portfolio-chat-input'
                 type='text'
                 value={input}
-                maxLength={1000}
+                maxLength={MAX_QUESTION_LENGTH}
                 onChange={(event) => setInput(event.target.value)}
                 placeholder='Ask about AI, experience, projects…'
                 className='h-11 min-w-0 flex-1 rounded-xl border border-white/20 bg-white/[0.06] px-3 text-sm text-white placeholder:text-white/45 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent'
