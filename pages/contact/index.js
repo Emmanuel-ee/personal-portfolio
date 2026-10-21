@@ -57,7 +57,7 @@ const Contact = () => {
       }
 
       form.reset();
-      setStatus({ type: 'success', message: 'Thanks for reaching out. Your message has been submitted.' });
+      setStatus({ type: 'success', message: 'Thanks for reaching out. Your message has been submitted. You will get a response on the email you provided.' });
     } catch (error) {
       setStatus({
         type: 'error',
@@ -81,7 +81,6 @@ const Contact = () => {
           </motion.h2>
           <p className='mb-6 max-w-xl text-left'>
             Have a project, opportunity, or question? Send a note and I&apos;ll get back to you.
-            You can also reach me at{' '}
             <a className='text-accent underline underline-offset-4' href='mailto:ememeemmanuel3@gmail.com'>
               ememeemmanuel3@gmail.com
             </a>.
