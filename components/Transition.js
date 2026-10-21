@@ -26,7 +26,7 @@ const Transition = () => {
         initial='initial'
         animate='animate'
         exit='exit'
-        transition={{ delay: 0, duration: 0.42, ease: [0.65, 0, 0.35, 1] }}
+        transition={{ delay: 0, duration: 0.32, ease: [0.65, 0, 0.35, 1] }}
       ></motion.div>
       <motion.div
         className='fixed top-0 bottom-0 right-full w-screen h-screen z-20 bg-[#3b2d71]'
@@ -34,7 +34,7 @@ const Transition = () => {
         initial='initial'
         animate='animate'
         exit='exit'
-        transition={{ delay: 0.05, duration: 0.42, ease: [0.65, 0, 0.35, 1] }}
+        transition={{ delay: 0.02, duration: 0.32, ease: [0.65, 0, 0.35, 1] }}
       ></motion.div>
       <motion.div
         className='fixed top-0 bottom-0 right-full w-screen h-screen z-10 bg-[#4b3792]'
@@ -42,7 +42,7 @@ const Transition = () => {
         initial='initial'
         animate='animate'
         exit='exit'
-        transition={{ delay: 0.1, duration: 0.42, ease: [0.65, 0, 0.35, 1] }}
+        transition={{ delay: 0.04, duration: 0.32, ease: [0.65, 0, 0.35, 1] }}
       ></motion.div>
     </>
   );
