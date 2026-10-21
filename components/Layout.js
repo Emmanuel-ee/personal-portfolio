@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
       >
         <HiHome className='text-lg text-accent' aria-hidden='true' />
         <span className='text-xs font-semibold uppercase tracking-[0.12em] sm:hidden'>Home</span>
-        <span className='hidden text-sm font-semibold sm:inline'>Emmanuel Cyprian</span>
+        <span className='hidden text-sm font-semibold sm:inline'>Emmanuel</span>
       </Link>
       <Nav />
       {children}
