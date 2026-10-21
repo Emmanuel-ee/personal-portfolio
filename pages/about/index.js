@@ -6,6 +6,22 @@ import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import { fadeIn } from '../../variants';
 
+const getYearsOfExperience = () => {
+  const startDate = new Date(2020, 2, 1);
+  const today = new Date();
+  let years = today.getFullYear() - startDate.getFullYear();
+
+  if (
+    today.getMonth() < startDate.getMonth() ||
+    (today.getMonth() === startDate.getMonth() &&
+      today.getDate() < startDate.getDate())
+  ) {
+    years -= 1;
+  }
+
+  return years;
+};
+
 export const aboutData = [
   {
     title: 'skills',
@@ -183,7 +199,7 @@ const About = () => {
           className='mt-16 grid grid-cols-1 border-y border-white/15 sm:grid-cols-3'
         >
           {[
-            { value: 5, label: 'Years of experience' },
+            { value: getYearsOfExperience(), label: 'Years of experience' },
             { value: 30, label: 'Satisfied clients' },
             { value: 50, label: 'Finished projects' },
           ].map((stat, statIndex) => (

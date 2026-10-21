@@ -40,6 +40,9 @@ const Layout = ({ children }) => {
       </Link>
       <Nav />
       {children}
+      <footer className='border-t border-white/10 px-4 py-6 text-center text-xs text-white/45 sm:px-8'>
+        &copy; {new Date().getFullYear()} Emmanuel Cyprian Ememe. All rights reserved.
+      </footer>
       <AIChatAssistant />
     </div>
   );
