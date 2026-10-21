@@ -2,22 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.translate-z-0 {
-  transform: translateZ(0px);
-}
-.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
-.swiper-pagination-horizontal.swiper-pagination-bullets
-  .swiper-pagination-bullet {
-  background-color: #c8f169;
-}
-
-.swiper-button-next:after,
-.swiper-button-prev:after,
-.swiper-button-next:after,
-.swiper-rtl .swiper-button-prev:after {
-  color: #c8f169;
-}
-
 @layer base {
   body {
     @apply bg-secondary overflow-x-hidden leading-relaxed;

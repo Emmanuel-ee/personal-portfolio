@@ -216,9 +216,16 @@ const AIChatAssistant = () => {
               </p>
             )}
             {error && (
-              <p className='rounded-lg border border-red-300/20 bg-red-400/10 px-3 py-2 text-sm text-red-200' role='alert'>
-                {error}
-              </p>
+              <div className='rounded-lg border border-red-300/20 bg-red-400/10 px-3 py-2 text-sm text-red-200' role='alert'>
+                <p className='text-red-200'>{error}</p>
+                <p className='mt-2 text-red-100'>
+                  You can still <Link href='/contact' className='underline underline-offset-4 hover:text-white'>send Emmanuel a message</Link>
+                  {' '}or{' '}
+                  <a href={BOOKING_URL} target='_blank' rel='noopener noreferrer' className='underline underline-offset-4 hover:text-white'>
+                    book a free call
+                  </a>.
+                </p>
+              </div>
             )}
             {messages.length === 1 && (
               <div className='flex flex-wrap gap-2 pt-1'>
