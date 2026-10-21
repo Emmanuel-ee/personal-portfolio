@@ -1,42 +1,42 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import Header from '../components/Header';
 import { motion } from 'framer-motion';
-import { HiArrowDownRight, HiArrowUpRight } from 'react-icons/hi2';
+import { HiArrowRight, HiArrowUpRight } from 'react-icons/hi2';
+import WorkSlider from '../components/WorkSlider';
 import { fadeIn } from '../variants';
 
 const Home = () => {
   return (
     <div className='relative min-h-screen overflow-hidden bg-primary'>
       <Header />
-      <main className='container relative z-10 mx-auto px-5 pb-28 pt-28 sm:px-10 xl:px-16 xl:pb-16 xl:pt-36'>
-        <div className='grid items-center gap-12 xl:grid-cols-[1.1fr_0.9fr] xl:gap-20'>
-          <div>
+      <main className='container relative z-10 mx-auto px-5 pb-32 pt-28 sm:px-10 xl:px-16 xl:pt-32'>
+        <section className='border-b border-white/15 pb-8 sm:pb-10'>
+          <div className='max-w-5xl'>
             <motion.p
               variants={fadeIn('down', 0.1)}
               initial='hidden'
               animate='show'
-              className='mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-accent'
+              className='mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent'
             >
-              Software · Product · Systems
+              Selected work · Product engineering
             </motion.p>
-          <motion.h1
+            <motion.h1
               variants={fadeIn('down', 0.2)}
               initial='hidden'
               animate='show'
-              className='mb-6 max-w-3xl text-4xl font-semibold leading-[1.05] sm:text-6xl xl:text-7xl'
+              className='mb-5 max-w-4xl text-4xl font-semibold leading-[1.08] sm:text-6xl xl:text-7xl'
             >
-              I make useful things for a living.
+              Software, products, and systems made for real-world use.
             </motion.h1>
             <motion.p
               variants={fadeIn('down', 0.3)}
               initial='hidden'
               animate='show'
-              className='mb-8 max-w-xl text-base leading-7 text-white/65 sm:text-lg'
+              className='mb-7 max-w-2xl text-base leading-7 text-white/65 sm:text-lg'
             >
-              I&apos;m Emmanuel Cyprian, a software engineer and builder working across digital
-              products, cloud systems, data, and applied AI. I bring ideas from first sketch to
-              dependable release.
+              A cross-disciplinary portfolio spanning software development, interactive
+              experiences, cloud systems, data, and applied AI, from early concepts through
+              dependable delivery.
             </motion.p>
             <motion.div
               variants={fadeIn('down', 0.4)}
@@ -48,52 +48,55 @@ const Home = () => {
                 href='/projects'
                 className='inline-flex h-12 items-center gap-3 bg-accent px-5 font-semibold text-primary transition-colors hover:bg-white'
               >
-                Explore my work <HiArrowUpRight aria-hidden='true' />
+                View all projects <HiArrowUpRight aria-hidden='true' />
               </Link>
               <Link
-                href='/about'
+                href='/contact'
                 className='inline-flex h-12 items-center gap-2 border border-white/20 px-5 text-sm text-white transition-colors hover:border-accent hover:text-accent'
               >
-                More about me <HiArrowDownRight aria-hidden='true' />
+                Discuss a project <HiArrowRight aria-hidden='true' />
               </Link>
             </motion.div>
           </div>
+        </section>
 
+        <section aria-labelledby='selected-work-heading' className='pt-8 sm:pt-10'>
+          <div className='mb-5 flex flex-wrap items-end justify-between gap-3'>
+            <div>
+              <p className='mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/45'>
+                Across disciplines
+              </p>
+              <h2 id='selected-work-heading' className='text-2xl font-semibold text-white sm:text-3xl'>
+                Selected work
+              </h2>
+            </div>
+            <Link
+              href='/projects'
+              className='inline-flex min-h-11 items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+            >
+              Explore the archive <HiArrowUpRight aria-hidden='true' />
+            </Link>
+          </div>
           <motion.div
-            variants={fadeIn('up', 0.35)}
+            variants={fadeIn('up', 0.15)}
             initial='hidden'
             animate='show'
-            className='relative mx-auto w-full max-w-[240px] sm:max-w-[300px] xl:mr-0 xl:max-w-[320px]'
+            className='w-full'
           >
-            <div className='absolute -left-3 -top-3 h-full w-full border border-accent/35 sm:-left-4 sm:-top-4' />
-            <div className='relative aspect-[4/5] overflow-hidden bg-secondary'>
-              <Image
-                src='/profile-picture.png'
-                alt='Emmanuel Cyprian'
-                fill
-                priority
-                sizes='(min-width: 1280px) 320px, (min-width: 640px) 300px, 240px'
-                className='object-cover'
-              />
-            </div>
-            <p className='mt-4 text-xs font-medium uppercase tracking-[0.16em] text-white/50'>
-              Engineer <span className='px-2 text-accent'>/</span> Builder
-            </p>
+            <WorkSlider />
           </motion.div>
-        </div>
+        </section>
 
-        <section aria-labelledby='practice-heading' className='mt-16 border-t border-white/15 pt-6 xl:mt-20'>
-          <div className='flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between'>
-            <h2 id='practice-heading' className='text-xs font-semibold uppercase tracking-[0.18em] text-white/45'>
-              A broad practice
-            </h2>
-            <ul className='grid gap-3 text-sm text-white/80 sm:grid-cols-2 sm:gap-x-12 xl:grid-cols-4'>
-              <li>Software &amp; web development</li>
-              <li>Product &amp; interface design</li>
-              <li>Cloud &amp; solution architecture</li>
-              <li>Data, research &amp; applied AI</li>
-            </ul>
-          </div>
+        <section aria-labelledby='practice-heading' className='mt-10 border-t border-white/15 pt-6'>
+          <h2 id='practice-heading' className='mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-white/45'>
+            Practice areas
+          </h2>
+          <ul className='grid gap-3 text-sm text-white/80 sm:grid-cols-2 xl:grid-cols-4'>
+            <li>Software &amp; web development</li>
+            <li>Product &amp; interface design</li>
+            <li>Cloud &amp; solution architecture</li>
+            <li>Data, research &amp; applied AI</li>
+          </ul>
         </section>
       </main>
     </div>
