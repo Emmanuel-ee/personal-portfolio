@@ -19,19 +19,32 @@ const Contact = () => {
 
     try {
       const formData = new FormData(form);
-      const response = await fetch('/api/contact', {
+      const formValues = Object.fromEntries(formData.entries());
+      const response = await fetch('https://formsubmit.co/ajax/ememeemmanuel3@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(formData.entries())),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: formValues.name,
+          email: formValues.email,
+          _replyto: formValues.email,
+          _subject: `[Portfolio] ${formValues.subject}`,
+          message: formValues.message,
+          _honey: formValues._honey,
+          _template: 'table',
+        }),
       });
       const result = await response.json();
+      const accepted = result.success === true || result.success === 'true';
 
-      if (!response.ok) {
-        throw new Error(result.message || 'Your message could not be sent. Please try again.');
+      if (!response.ok || !accepted) {
+        throw new Error(result.message || 'Email delivery failed. Please email me directly.');
       }
 
       form.reset();
-      setStatus({ type: 'success', message: 'Thanks for reaching out. Your message has been sent.' });
+      setStatus({ type: 'success', message: 'Thanks for reaching out. Your message has been submitted.' });
     } catch (error) {
       setStatus({
         type: 'error',
@@ -116,8 +129,8 @@ const Contact = () => {
               />
             </label>
             <div className='absolute -left-[10000px]' aria-hidden='true'>
-              <label htmlFor='contact-website'>Leave this field empty</label>
-              <input id='contact-website' name='website' type='text' tabIndex='-1' autoComplete='off' />
+              <label htmlFor='contact-honey'>Leave this field empty</label>
+              <input id='contact-honey' name='_honey' type='text' tabIndex='-1' autoComplete='off' />
             </div>
             <div className='flex flex-col items-start gap-3 sm:flex-row sm:items-center'>
               <button
